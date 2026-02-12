@@ -68,15 +68,6 @@ export const pagesConfig = {
     intro: 'Case studies that demonstrate how I approach complex problems, make technical decisions, and deliver measurable impact. Each project tells the story of the challenge, the constraints, the decisions made, and the outcomes achieved.',
   },
   
-  /**
-   * Decisions listing page (/decisions)
-   */
-  decisions: {
-    title: 'Decisions - Architectural & Technical Choices',
-    description: 'A log of architectural and technical decisions, documenting the context, alternatives considered, and reasoning behind key engineering choices.',
-    heading: 'Decisions',
-    intro: 'A transparent log of architectural and technical decisions I\'ve made throughout my career. Each entry documents the context, alternatives considered, and the reasoning behind the choice.',
-  },
   
   /**
    * Journey timeline page (/journey)
