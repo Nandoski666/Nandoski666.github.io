@@ -1,104 +1,82 @@
 ---
 /**
- * Projects Index Page
- * 
- * Lists all projects as case studies with impact summaries. Projects are displayed
- * in a prioritized order: custom order (if specified) takes precedence, otherwise
- * sorted by year (most recent first). Featured projects are highlighted.
- * 
- * Features:
- * - Queries all projects from content collection
- * - Smart sorting: custom order → year (descending)
- * - Displays project and featured count statistics
- * - Uses ProjectCard component for consistent presentation
- * - SEO optimization
- * - Empty state handling
- * 
- * Route: /projects
- * 
- * @page
+ * Ejercicios SQL
+ * Route: /proyect
  */
-
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SEO from '../../components/SEO.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
-import PageStats from '../../components/PageStats.astro';
-import { getCollection } from 'astro:content';
-import { pagesConfig } from '../../pages.config';
 
-/**
- * Queries all projects from the content collection
- */
-const allProjects = await getCollection('projects');
-
-/**
- * Sorts projects with intelligent prioritization
- * 
- * Sorting logic:
- * 1. If both projects have an 'order' field, sort by order (ascending)
- * 2. Projects with 'order' field are prioritized over those without
- * 3. Projects without 'order' are sorted by year (descending - newest first)
- * 
- * This allows manual curation of featured projects while maintaining
- * chronological order for others.
- */
-const sortedProjects = allProjects.sort((a, b) => {
-  // If both have order field, sort by order
-  if (a.data.order !== undefined && b.data.order !== undefined) {
-    return a.data.order - b.data.order;
-  }
-  // If only one has order, prioritize it
-  if (a.data.order !== undefined) return -1;
-  if (b.data.order !== undefined) return 1;
-  // Otherwise sort by year (descending)
-  return b.data.year - a.data.year;
-});
-
-/**
- * Total count of projects for statistics display
- */
-const totalProjects = sortedProjects.length;
-
-/**
- * Count of featured projects for statistics display
- */
-const featuredCount = sortedProjects.filter(p => p.data.featured).length;
+const pageTitle = 'Ejercicios SQL — Nandoski666';
 ---
 
 <BaseLayout>
-  <SEO 
-    slot="head"
-    title={pagesConfig.projects.title}
-    description={pagesConfig.projects.description}
-    type="website"
-  />
-
   <main class="page-container">
     <header class="page-header">
-      <h1 class="page-title">{pagesConfig.projects.heading}</h1>
+      <h1>{pageTitle}</h1>
       <p class="page-intro">
-        {pagesConfig.projects.intro}
+        Aquí están las dos consultas solicitadas (Ejercicio 1 y Ejercicio 2).
       </p>
-      <PageStats text={`${totalProjects} projects · ${featuredCount} featured`} />
     </header>
 
-    {sortedProjects.length > 0 ? (
-      <div class="card-list">
-        {sortedProjects.map((project) => (
-          <ProjectCard
-            title={project.data.title}
-            slug={project.id}
-            outcomeSummary={project.data.outcomeSummary}
-            role={project.data.role}
-            year={project.data.year}
-            techStack={project.data.techStack}
-            featured={project.data.featured}
-            status={project.data.status}
-          />
-        ))}
-      </div>
-    ) : (
-      <p class="empty-state">No projects available yet.</p>
-    )}
+    <section class="exercise">
+      <h2>Ejercicio 1</h2>
+      <pre><code>
+SELECT E.FIRST_NAME,
+       H.EMPLOYEE_ID,
+       COUNT(H.JOB_ID) AS job_count
+FROM HR.JOB_HISTORY H
+JOIN HR.EMPLOYEES E
+     ON E.EMPLOYEE_ID = H.EMPLOYEE_ID
+GROUP BY E.FIRST_NAME, H.EMPLOYEE_ID
+HAVING COUNT(H.JOB_ID) > 1
+ORDER BY job_count DESC;
+      </code></pre>
+    </section>
+
+    <section class="exercise">
+      <h2>Ejercicio 2</h2>
+      <pre><code>
+SELECT  E.EMPLOYEE_ID AS ID_EMPLEADO,
+        E.FIRST_NAME || ' ' || E.LAST_NAME AS EMPLEADO,
+        LPAD(SUBSTR(E.EMAIL, 1, 3), 9, '*') AS EMAIL_EMPLEADO,
+        M.FIRST_NAME || ' ' || M.LAST_NAME AS JEFE,
+        LPAD(SUBSTR(M.EMAIL, 1, 3), 9, '*') AS EMAIL_JEFE,
+        E.DEPARTMENT_ID AS DEPARTAMENTO,
+        E.SALARY AS SALARIO
+FROM HR.EMPLOYEES E
+LEFT JOIN HR.EMPLOYEES M
+       ON E.MANAGER_ID = M.EMPLOYEE_ID
+ORDER BY E.DEPARTMENT_ID, E.SALARY DESC;
+      </code></pre>
+    </section>
   </main>
+
+  <style>
+    .page-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.25rem;
+    }
+
+    .page-header h1 {
+      margin-bottom: 1rem;
+    }
+
+    .exercise {
+      margin: 2rem 0;
+      padding-top: 1rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    pre {
+      background: #0b0b0b;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow: auto;
+    }
+
+    code {
+      font-family: monospace;
+      font-size: 0.95rem;
+    }
+  </style>
 </BaseLayout>

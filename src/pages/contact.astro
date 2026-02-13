@@ -1,174 +1,115 @@
 ---
-/**
- * Contact Page
- * 
- * Minimal, intentional contact page with clear visual hierarchy and zone-based layout.
- * Prioritizes email as the primary contact method while providing secondary social links.
- * 
- * Layout Structure:
- * - Zone 1 (Primary): Email address with context about response time
- * - Zone 2 (Secondary): Social media links (only shown if configured)
- * 
- * Features:
- * - Clean, distraction-free design
- * - Large, prominent email link
- * - Automatic filtering of configured social links
- * - Responsive layout
- * - Clear visual hierarchy
- * 
- * Route: /contact
- * 
- * @page
- */
-
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SEO from '../components/SEO.astro';
-import { siteConfig } from '../config';
-import { pagesConfig } from '../pages.config';
-
-/**
- * Filters and formats social links from site configuration
- * 
- * Only includes platforms that have a URL configured (non-empty values).
- * Capitalizes platform names for display (e.g., "github" becomes "Github").
- * 
- * @returns Array of social link objects with platform name and URL
- */
-const socialLinks = Object.entries(siteConfig.social)
-  .filter(([_, url]) => url)
-  .map(([platform, url]) => ({
-    platform: platform.charAt(0).toUpperCase() + platform.slice(1),
-    url
-  }));
 ---
 
 <BaseLayout>
   <SEO 
     slot="head"
-    title={pagesConfig.contact.title}
-    description={pagesConfig.contact.description}
+    title="Contacto | Hernando Javier Garcia Mogollon"
+    description="Ponte en contacto con Hernando Javier Garcia Mogollon, desarrollador Fullstack en Bogotá D.C."
     type="website"
   />
 
   <main class="contact-page">
-    <!-- Zone 1: Primary Intent -->
+    <!-- Zona Principal -->
     <section class="primary-zone">
-      <h1>{pagesConfig.contact.heading}</h1>
-      <a href={`mailto:${siteConfig.author.email}`} class="email-link">
-        {siteConfig.author.email}
-      </a>
-      <p class="context">
-        I read every email. Expect a reply within a few days.
-      </p>
-    </section>
+      <h1 class="name">Hernando Javier Garcia Mogollon</h1>
 
-    <!-- Zone 2: Secondary (Social) -->
-    {socialLinks.length > 0 && (
-      <section class="secondary-zone">
-        <h2>Elsewhere</h2>
-        <div class="social-links">
-          {socialLinks.map((link, index) => (
-            <>
-              <a href={link.url} target="_blank" rel="noopener noreferrer">
-                {link.platform}
-              </a>
-              {index < socialLinks.length - 1 && <span class="separator">·</span>}
-            </>
-          ))}
-        </div>
-      </section>
-    )}
+      <!-- Correo institucional: principal (mostrado de forma destacada, pero menor que el nombre) -->
+      <a href="mailto:hjgarcia@unbosque.edu.co" class="email-link email-primary" title="Correo institucional">
+        hjgarcia@unbosque.edu.co
+      </a>
+
+      <!-- Correo personal: secundario -->
+      <a href="mailto:hernandogarcia06@hotmail.com" class="email-link email-secondary" title="Correo personal">
+        hernandogarcia06@hotmail.com
+      </a>
+
+      <p class="phone">📱 3007431620</p>
+      <p class="location">📍 Bogotá D.C.</p>
+
+    </section>
   </main>
 
   <style>
+    :root {
+      /* Ajusta estas variables si quieres escalar tamaños globalmente */
+      --name-min: 1.8rem;
+      --name-max: 2.8rem;
+      --email-primary-min: 1.15rem;
+      --email-primary-max: 1.8rem;
+      --email-secondary: 1rem;
+      --muted: var(--color-text-secondary, #9b9b9b);
+      --text: var(--color-text, #fff);
+    }
+
     .contact-page {
-      max-width: 700px;
+      max-width: 820px;
       margin: 0 auto;
-      padding: 3rem 1.5rem 8rem;
+      padding: 3.5rem 1.5rem 8rem;
     }
 
     .primary-zone {
       margin-bottom: 3rem;
     }
 
-    .primary-zone h1 {
-      font-size: 1.125rem;
-      font-weight: 500;
-      color: var(--color-text-muted);
-      margin-bottom: 1.5rem;
-      letter-spacing: 0.01em;
+    /* Nombre: debe ser el elemento más grande */
+    .name {
+      font-size: clamp(var(--name-min), 6vw, var(--name-max));
+      line-height: 1.05;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 1.25rem 0;
     }
 
+    /* Estilo común para correos */
     .email-link {
       display: block;
-      font-size: clamp(1.75rem, 5vw, 2.5rem);
-      font-weight: 600;
-      color: var(--color-text);
       text-decoration: none;
-      letter-spacing: -0.02em;
-      margin-bottom: 1.5rem;
-      transition: color 0.2s ease;
+      color: var(--text);
+      transition: color 0.15s ease;
+      margin-bottom: 0.5rem;
+      word-break: break-all;
+    }
+
+    /* Correo institucional (principal), destacado pero menor que el nombre */
+    .email-primary {
+      font-size: clamp(var(--email-primary-min), 3.5vw, var(--email-primary-max));
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* Correo personal (secundario) */
+    .email-secondary {
+      font-size: var(--email-secondary);
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
     }
 
     .email-link:hover {
-      color: var(--color-text-secondary);
+      color: var(--color-text); /* mantiene contraste al pasar */
+    }
+
+    .phone,
+    .location {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin: 0.35rem 0;
     }
 
     .context {
-      font-size: 1rem;
-      color: var(--color-text-muted);
+      margin-top: 1.75rem;
+      font-size: 0.95rem;
+      color: var(--muted);
       line-height: 1.6;
     }
 
-    .secondary-zone {
-      padding-top: 3rem;
-      border-top: 1px solid var(--color-border);
-    }
-
-    .secondary-zone h2 {
-      font-size: 0.8125rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--color-text-muted);
-      margin-bottom: 1rem;
-    }
-
-    .social-links {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .social-links a {
-      color: var(--color-text-secondary);
-      text-decoration: none;
-      font-size: 1rem;
-      transition: color 0.2s ease;
-    }
-
-    .social-links a:hover {
-      color: var(--color-text);
-    }
-
-    .separator {
-      color: var(--color-text-muted);
-      user-select: none;
-    }
-
     @media (max-width: 640px) {
-      .contact-page {
-        padding: 4rem 1rem 6rem;
-      }
-
-      .primary-zone {
-        margin-bottom: 4rem;
-      }
-
-      .primary-zone h1 {
-        font-size: 1rem;
-      }
+      .contact-page { padding: 3.5rem 1rem 6rem; }
+      .name { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+      .email-primary { font-size: clamp(1rem, 4.5vw, 1.4rem); }
     }
   </style>
 </BaseLayout>
