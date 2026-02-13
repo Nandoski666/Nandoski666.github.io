@@ -1,50 +1,23 @@
 ---
-/**
- * Página de Decisiones Técnicas
- * 
- * Aquí documento decisiones importantes que he tomado
- * en mis proyectos de desarrollo.
- */
-
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import DecisionCard from '../../components/DecisionCard.astro';
-import { getCollection } from 'astro:content';
-
-// Obtener decisiones
-const decisions = await getCollection('decisions');
-
-// Ordenar por fecha (más reciente primero)
-const sortedDecisions = decisions.sort((a, b) =>
-  b.data.date.getTime() - a.data.date.getTime()
-);
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout>
   <main class="page-container">
-    
-    <header class="page-header">
-      <h1>Mis Decisiones Técnicas</h1>
-      <p>
-        En esta sección comparto decisiones importantes que he tomado
-        en mis proyectos como desarrollador.
-        Aquí explico por qué elegí ciertas tecnologías o arquitecturas.
-      </p>
-    </header>
 
-    {sortedDecisions.length > 0 ? (
-      <div class="card-list">
-        {sortedDecisions.map((decision) => (
-          <DecisionCard
-            title={decision.data.title}
-            slug={decision.id}
-            date={decision.data.date}
-            tags={decision.data.tags}
-          />
-        ))}
-      </div>
-    ) : (
-      <p>Aún no he documentado decisiones técnicas.</p>
-    )}
+    <section class="hero">
+      <h1>Nandoski666</h1>
+      <h2>Hernando Javier Garcia Mogollon</h2>
+
+      <p>
+        Desarrollador Fullstack enfocado en aplicaciones web,
+        sistemas empresariales y proyectos tecnológicos modernos.
+      </p>
+
+      <p>
+        Aquí comparto mis proyectos, aprendizajes y evolución como desarrollador.
+      </p>
+    </section>
 
   </main>
 </BaseLayout>
