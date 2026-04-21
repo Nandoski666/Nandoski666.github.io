@@ -160,9 +160,9 @@ DECLARE
   v_dia NUMBER := TO_NUMBER(TO_CHAR(SYSDATE, 'DD'));
   v_i NUMBER := 2;
 BEGIN
-  IF v_dia < 2 THEN GOTO no_primo; END IF;
+  IF v_dia &lt; 2 THEN GOTO no_primo; END IF;
   &lt;&lt;check_loop&gt;&gt;
-  IF v_i > v_dia / 2 THEN GOTO es_primo; END IF;
+  IF v_i &gt; v_dia / 2 THEN GOTO es_primo; END IF;
   IF MOD(v_dia, v_i) = 0 THEN GOTO no_primo; END IF;
   v_i := v_i + 1;
   GOTO check_loop;
@@ -181,7 +181,7 @@ DECLARE
   a NUMBER := 0; b NUMBER := 1; t NUMBER;
 BEGIN
   LOOP
-    EXIT WHEN a > 1000;
+    EXIT WHEN a &gt; 1000;
     DBMS_OUTPUT.PUT_LINE(a);
     t := a + b; a := b; b := t;
   END LOOP;
