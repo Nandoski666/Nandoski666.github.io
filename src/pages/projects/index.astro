@@ -21,7 +21,6 @@ const pageTitle = 'Portafolio de Desarrollo PL/SQL & SQL';
 
     <section class="exercise">
       <h2>1. Mi Primer Script PL/SQL: Saludo al Entorno</h2>
-      <span class="date">Feb 18, 2026</span>
       <p class="enunciado">Primer bloque anónimo en Oracle para validar la conexión y salida de consola con DBMS_OUTPUT.</p>
       <pre><code>
 BEGIN
@@ -32,7 +31,6 @@ END;
 
     <section class="exercise">
       <h2>2. Análisis de Rotación: Empleados con Múltiples Roles</h2>
-      <span class="date">Feb 12, 2026</span>
       <p class="enunciado">Consulta SQL avanzada para identificar talentos que han ocupado más de un cargo histórico en la empresa.</p>
       <pre><code>
 SELECT employee_id, COUNT(*) AS total_roles
@@ -44,7 +42,6 @@ HAVING COUNT(*) > 1;
 
     <section class="exercise">
       <h2>3. Lógica Base: Declaración y Control de Variables</h2>
-      <span class="date">Feb 18, 2026</span>
       <p class="enunciado">Uso de la sección DECLARE para gestionar tipos de datos escalares y su impresión dinámica.</p>
       <pre><code>
 DECLARE
@@ -57,7 +54,6 @@ END;
 
     <section class="exercise">
       <h2>4. Geolocalización Salarial: Filtro de Nómina Europea</h2>
-      <span class="date">Feb 11, 2026</span>
       <p class="enunciado">Consulta relacional multitabla (JOINs) para filtrar empleados por región geográfica y rango de ingresos.</p>
       <pre><code>
 SELECT e.first_name, e.salary, r.region_name
@@ -74,7 +70,6 @@ WHERE r.region_name = 'Europe' AND e.salary BETWEEN 5000 AND 10000;
 
     <section class="exercise">
       <h2>5. Extracción Directa: Consulta Dinámica de Perfiles</h2>
-      <span class="date">Feb 18, 2026</span>
       <p class="enunciado">Implementación de SELECT INTO para recuperar e inyectar datos de la tabla empleados en variables locales.</p>
       <pre><code>
 DECLARE
@@ -90,7 +85,6 @@ END;
 
     <section class="exercise">
       <h2>6. Estructura Organizacional y Seguridad de Datos</h2>
-      <span class="date">Feb 10, 2026</span>
       <p class="enunciado">Generación de reporte jerárquico con enmascaramiento selectivo de correos electrónicos corporativos.</p>
       <pre><code>
 SELECT LPAD(' ', 2*(LEVEL-1)) || first_name AS empleado,
@@ -103,7 +97,6 @@ CONNECT BY PRIOR employee_id = manager_id;
 
     <section class="exercise">
       <h2>7. Automatización de Tipado: Vinculación vía %TYPE</h2>
-      <span class="date">Feb 18, 2026</span>
       <p class="enunciado">Uso de anclaje de tipos para garantizar que las variables mantengan consistencia con las columnas de la tabla HR.</p>
       <pre><code>
 DECLARE
@@ -116,7 +109,6 @@ END;
 
     <section class="exercise">
       <h2>8. Gestión de Respaldos: Clonación de Estructuras (CTAS)</h2>
-      <span class="date">Feb 9, 2026</span>
       <p class="enunciado">Creación rápida de tablas físicas basadas en consultas filtradas para asegurar la disponibilidad de información.</p>
       <pre><code>
 CREATE TABLE emp_backup AS 
@@ -126,7 +118,6 @@ SELECT * FROM employees WHERE department_id = 80;
 
     <section class="exercise">
       <h2>9. Mapeo de Entidades: Captura de Filas con %ROWTYPE</h2>
-      <span class="date">Feb 18, 2026</span>
       <p class="enunciado">Optimización de memoria al cargar un registro completo de la tabla en una sola variable de estructura múltiple.</p>
       <pre><code>
 DECLARE
@@ -142,7 +133,6 @@ END;
 
     <section class="exercise">
       <h2>10. Modelado Relacional: Desarrollo de Sistema Bibliotecario</h2>
-      <span class="date">Feb 8, 2026</span>
       <p class="enunciado">Diseño y creación de tablas desde cero para la gestión de activos editoriales.</p>
       <pre><code>
 CREATE TABLE libros (
@@ -156,7 +146,6 @@ CREATE TABLE libros (
 
     <section class="exercise">
       <h2>11. Auditoría de Esquemas: Mapeo del Propietario NESPINOSAE</h2>
-      <span class="date">Mar 4, 2026</span>
       <p class="enunciado">Consulta de metadatos del diccionario de datos de Oracle para listar objetos pertenecientes a un usuario específico.</p>
       <pre><code>
 SELECT table_name FROM all_tables WHERE owner = 'NESPINOSAE';
@@ -165,7 +154,6 @@ SELECT table_name FROM all_tables WHERE owner = 'NESPINOSAE';
 
     <section class="exercise">
       <h2>12. Validación de Cómputo: Algoritmo de Días Primos (IF)</h2>
-      <span class="date">Feb 18, 2026</span>
       <p class="enunciado">Uso de estructuras condicionales anidadas para determinar propiedades matemáticas del calendario.</p>
       <pre><code>
 DECLARE
@@ -186,7 +174,6 @@ END;
 
     <section class="exercise">
       <h2>13. Salto de Control: Flujo Lógico con Etiquetas GOTO</h2>
-      <span class="date">Feb 18, 2026</span>
       <p class="enunciado">Demostración técnica de redireccionamiento de flujo mediante etiquetas identificadoras en PL/SQL.</p>
       <pre><code>
 DECLARE
@@ -201,7 +188,6 @@ END;
 
     <section class="exercise">
       <h2>14. Secuencias Infinitas: Generador Fibonacci con LOOP</h2>
-      <span class="date">Feb 18, 2026</span>
       <p class="enunciado">Algoritmo iterativo para proyectar la sucesión de Fibonacci hasta un límite determinado.</p>
       <pre><code>
 DECLARE
@@ -218,7 +204,6 @@ END;
 
     <section class="exercise">
       <h2>15. Optimización Euclidiana: Cálculo de MCM vía WHILE</h2>
-      <span class="date">Feb 18, 2026</span>
       <p class="enunciado">Implementación del algoritmo de Euclides para el cálculo del Mínimo Común Múltiplo.</p>
       <pre><code>
 DECLARE
@@ -236,7 +221,6 @@ END;
 
     <section class="exercise">
       <h2>16. Búsqueda Determinada: Proyección de Raíz Entera (FOR)</h2>
-      <span class="date">Feb 18, 2026</span>
       <p class="enunciado">Evaluación sistémica para encontrar si un número X posee raíz cuadrada exacta en el conjunto de enteros.</p>
       <pre><code>
 DECLARE
@@ -256,7 +240,6 @@ END;
 
     <section class="exercise">
       <h2>17. Lógica Reutilizable: Procedimientos de Gestión Salarial</h2>
-      <span class="date">Mar 4, 2026</span>
       <p class="enunciado">Desarrollo de objetos persistentes para la actualización masiva y segura de datos sensibles.</p>
       <pre><code>
 CREATE OR REPLACE PROCEDURE upd_salary(p_id IN NUMBER, p_percent IN NUMBER) IS
@@ -269,7 +252,6 @@ END;
 
     <section class="exercise">
       <h2>18. Procesamiento de Conjuntos: Cursores Parametrizados</h2>
-      <span class="date">Feb 18, 2026</span>
       <p class="enunciado">Iteración profesional sobre juegos de datos mediante cursores explícitos con paso de parámetros.</p>
       <pre><code>
 DECLARE
@@ -321,14 +303,6 @@ END;
       margin-bottom: 0.1rem;
       font-size: 1.4rem;
       color: var(--color-primary, #fff);
-    }
-
-    .date {
-      display: block;
-      font-size: 0.85rem;
-      color: #3b82f6;
-      margin-bottom: 0.75rem;
-      font-weight: 500;
     }
 
     .enunciado {
