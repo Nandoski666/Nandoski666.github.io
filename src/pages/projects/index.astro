@@ -1,11 +1,11 @@
 ---
 /**
- * Ejercicios SQL
- * Route: /proyect
+ * Portafolio de Desarrollo PL/SQL & SQL
+ * Route: /projects
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const pageTitle = 'Ejercicios SQL — Nandoski666';
+const pageTitle = 'Portafolio de Desarrollo PL/SQL & SQL';
 ---
 
 <BaseLayout>
@@ -13,71 +13,207 @@ const pageTitle = 'Ejercicios SQL — Nandoski666';
     <header class="page-header">
       <h1>{pageTitle}</h1>
       <p class="page-intro">
-        Aquí están las tres consultas solicitadas (Ejercicio 1, Ejercicio 2 y Ejercicio 3).
+        Material para tu portafolio, limpio de cualquier referencia externa y enfocado 100% en los requerimientos técnicos de Oracle.
       </p>
     </header>
 
-    <!-- Ejercicio 1 -->
+    <h3 class="phase-title">Fase 1: Fundamentos y Consultas de Estructura</h3>
+
     <section class="exercise">
-      <h2>Ejercicio 1</h2>
-      <p class="enunciado">Identificar los empleados que han tenido más de un registro en su historial de cargos (empleados con historial laboral múltiple).</p>
+      <h2>1. PL/SQL 01: Hola Mundo</h2>
+      <p class="enunciado">Primer bloque anónimo para verificar la configuración del entorno.</p>
       <pre><code>
-SELECT E.FIRST_NAME,
-       H.EMPLOYEE_ID,
-       COUNT(H.JOB_ID) AS job_count
-FROM HR.JOB_HISTORY H
-JOIN HR.EMPLOYEES E
-     ON E.EMPLOYEE_ID = H.EMPLOYEE_ID
-GROUP BY E.FIRST_NAME, H.EMPLOYEE_ID
-HAVING COUNT(H.JOB_ID) > 1
-ORDER BY job_count DESC;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Hola Mundo PL/SQL');
+END;
       </code></pre>
     </section>
 
-    <!-- Ejercicio 2 -->
     <section class="exercise">
-      <h2>Ejercicio 2</h2>
-      <p class="enunciado">
-        Identifique todos los empleados que vivan o trabajen en Europa y que tengan un salario entre 4.000 y 6.000 dólares.
-        Mostrar columnas: 1) Nombre y apellidos (una sola columna), 2) País al que pertenece, 3) Salario.
-      </p>
+      <h2>2. Ejercicio 1: Historial de Cargos</h2>
+      <p class="enunciado">Consulta para detectar empleados con más de un registro en la tabla de historial.</p>
       <pre><code>
-SELECT
-  E.FIRST_NAME || ' ' || E.LAST_NAME AS empleado,
-  C.COUNTRY_NAME AS pais,
-  E.SALARY AS salario
-FROM HR.EMPLOYEES E
-LEFT JOIN HR.DEPARTMENTS D
-  ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
-LEFT JOIN HR.LOCATIONS L
-  ON D.LOCATION_ID = L.LOCATION_ID
-LEFT JOIN HR.COUNTRIES C
-  ON L.COUNTRY_ID = C.COUNTRY_ID
-LEFT JOIN HR.REGIONS R
-  ON C.REGION_ID = R.REGION_ID
-WHERE R.REGION_NAME = 'Europe'
-  AND E.SALARY BETWEEN 4000 AND 6000
-ORDER BY E.SALARY DESC;
+SELECT employee_id, COUNT(*) AS total_roles
+FROM job_history
+GROUP BY employee_id
+HAVING COUNT(*) > 1;
       </code></pre>
     </section>
 
-    <!-- Ejercicio 3 -->
     <section class="exercise">
-      <h2>Ejercicio 3</h2>
-      <p class="enunciado">
-        Proyectar orden jerárquico de los cargos de los empleados: mostrar el nombre del empleado y su (sus) jefe(s) y extraer emails de ambos
-        (mostrar las primeras 3 letras y rellenar con 6 asteriscos a la izquierda).
-      </p>
+      <h2>3. PL/SQL 02: Asignación de Variable</h2>
+      <p class="enunciado">Declaración y manipulación de escalares.</p>
       <pre><code>
-SELECT 
-    e.first_name || ' ' || e.last_name AS empleado,
-    m.first_name || ' ' || m.last_name AS jefe,
-    LPAD(SUBSTR(e.email,1,3), 9, '*') AS email_empleado,
-    LPAD(SUBSTR(m.email,1,3), 9, '*') AS email_jefe
-FROM HR.EMPLOYEES e
-LEFT JOIN HR.EMPLOYEES m
-    ON e.manager_id = m.employee_id
-ORDER BY m.employee_id, e.employee_id;
+DECLARE
+  v_test VARCHAR2(20) := 'Nando Dev';
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Valor: ' || v_test);
+END;
+      </code></pre>
+    </section>
+
+    <section class="exercise">
+      <h2>4. Ejercicio 2: Filtro Europa y Salarios</h2>
+      <p class="enunciado">Filtrado avanzado utilizando JOINs entre regiones y empleados.</p>
+      <pre><code>
+SELECT e.first_name, e.salary, r.region_name
+FROM employees e
+JOIN departments d ON e.department_id = d.department_id
+JOIN locations l ON d.location_id = l.location_id
+JOIN countries c ON l.country_id = c.country_id
+JOIN regions r ON c.region_id = r.region_id
+WHERE r.region_name = 'Europe' AND e.salary BETWEEN 5000 AND 10000;
+      </code></pre>
+    </section>
+
+    <h3 class="phase-title">Fase 2: Manejo de Datos y Atributos</h3>
+
+    <section class="exercise">
+      <h2>5. PL/SQL 03: SELECT INTO</h2>
+      <p class="enunciado">Recuperación de una única fila desde la base de datos a variables locales.</p>
+      <pre><code>
+DECLARE
+  v_fname employees.first_name%TYPE;
+  v_lname employees.last_name%TYPE;
+BEGIN
+  SELECT first_name, last_name INTO v_fname, v_lname 
+  FROM employees WHERE employee_id = 100;
+  DBMS_OUTPUT.PUT_LINE(v_fname || ' ' || v_lname);
+END;
+      </code></pre>
+    </section>
+
+    <section class="exercise">
+      <h2>6. Ejercicio 3: Jerarquía y Emails</h2>
+      <p class="enunciado">Reporte jerárquico con enmascaramiento de seguridad en correos.</p>
+      <pre><code>
+SELECT LPAD(' ', 2*(LEVEL-1)) || first_name AS empleado,
+       RPAD(SUBSTR(email, 1, 2), LENGTH(email), '*') AS email_hidden
+FROM employees
+START WITH manager_id IS NULL
+CONNECT BY PRIOR employee_id = manager_id;
+      </code></pre>
+    </section>
+
+    <section class="exercise">
+      <h2>7. PL/SQL 04: Uso de %TYPE</h2>
+      <p class="enunciado">Vinculación dinámica de tipos para asegurar integridad si cambia la tabla.</p>
+      <pre><code>
+DECLARE
+  v_sal employees.salary%TYPE;
+BEGIN
+  SELECT salary INTO v_sal FROM employees WHERE employee_id = 120;
+END;
+      </code></pre>
+    </section>
+
+    <section class="exercise">
+      <h2>8. Ejercicio 4: Importar Información y Tablas</h2>
+      <p class="enunciado">Creación de tablas mediante CTAS (Create Table As Select).</p>
+      <pre><code>
+CREATE TABLE emp_backup AS 
+SELECT * FROM employees WHERE department_id = 80;
+      </code></pre>
+    </section>
+
+    <section class="exercise">
+      <h2>9. PL/SQL 05: Uso de %ROWTYPE</h2>
+      <p class="enunciado">Manejo de registros completos de una tabla en una sola variable.</p>
+      <pre><code>
+DECLARE
+  v_emp_rec employees%ROWTYPE;
+BEGIN
+  SELECT * INTO v_emp_rec FROM employees WHERE employee_id = 105;
+  DBMS_OUTPUT.PUT_LINE(v_emp_rec.email);
+END;
+      </code></pre>
+    </section>
+
+    <h3 class="phase-title">Fase 3: Lógica Algorítmica y Control</h3>
+
+    <section class="exercise">
+      <h2>10. Ejercicio 5: Base de Datos de Librería</h2>
+      <p class="enunciado">Modelo relacional básico para gestión de libros.</p>
+      <pre><code>
+CREATE TABLE libros (
+    isbn VARCHAR2(20) PRIMARY KEY,
+    titulo VARCHAR2(100),
+    autor VARCHAR2(50),
+    precio NUMBER(8,2)
+);
+      </code></pre>
+    </section>
+
+    <section class="exercise">
+      <h2>11. Ejercicio 6: Exploración del Esquema NESPINOSAE</h2>
+      <p class="enunciado">Auditoría de objetos en esquemas específicos.</p>
+      <pre><code>
+SELECT table_name FROM all_tables WHERE owner = 'NESPINOSAE';
+      </code></pre>
+    </section>
+
+    <section class="exercise">
+      <h2>12. PL/SQL 06-07: IF y GOTO (Día Primo)</h2>
+      <p class="enunciado">Control de flujo para validación matemática.</p>
+      <pre><code>
+DECLARE
+  v_dia NUMBER := TO_NUMBER(TO_CHAR(SYSDATE, 'DD'));
+  v_i NUMBER := 2;
+BEGIN
+  IF v_dia < 2 THEN GOTO no_primo; END IF;
+  &lt;&lt;check_loop&gt;&gt;
+  IF v_i > v_dia / 2 THEN GOTO es_primo; END IF;
+  IF MOD(v_dia, v_i) = 0 THEN GOTO no_primo; END IF;
+  v_i := v_i + 1;
+  GOTO check_loop;
+  &lt;&lt;es_primo&gt;&gt; DBMS_OUTPUT.PUT_LINE(v_dia || ' es primo'); RETURN;
+  &lt;&lt;no_primo&gt;&gt; DBMS_OUTPUT.PUT_LINE(v_dia || ' no es primo');
+END;
+      </code></pre>
+    </section>
+
+    <section class="exercise">
+      <h2>13. PL/SQL 08-10: Loops (Fibonacci, MCM, Raíz)</h2>
+      <p class="enunciado">Ejemplo de uso de bucles para la secuencia de Fibonacci.</p>
+      <pre><code>
+-- Fibonacci con LOOP
+DECLARE
+  a NUMBER := 0; b NUMBER := 1; t NUMBER;
+BEGIN
+  LOOP
+    EXIT WHEN a > 1000;
+    DBMS_OUTPUT.PUT_LINE(a);
+    t := a + b; a := b; b := t;
+  END LOOP;
+END;
+      </code></pre>
+    </section>
+
+    <h3 class="phase-title">Fase 4: Objetos Programables</h3>
+
+    <section class="exercise">
+      <h2>14. PL/SQL 11: Procedimientos Almacenados</h2>
+      <p class="enunciado">Creación de procedimiento almacenado para actualización salarial.</p>
+      <pre><code>
+CREATE OR REPLACE PROCEDURE upd_salary(p_id IN NUMBER, p_percent IN NUMBER) IS
+BEGIN
+  UPDATE employees SET salary = salary * (1 + p_percent/100) WHERE employee_id = p_id;
+  COMMIT;
+END;
+      </code></pre>
+    </section>
+
+    <section class="exercise">
+      <h2>15. PL/SQL 12: Cursores Explícitos y Parametrizados</h2>
+      <p class="enunciado">Declaración y uso de cursores explícitos con parámetros.</p>
+      <pre><code>
+DECLARE
+  CURSOR c_dept(p_id NUMBER) IS SELECT first_name FROM employees WHERE department_id = p_id;
+BEGIN
+  FOR r_emp IN c_dept(50) LOOP
+    DBMS_OUTPUT.PUT_LINE('Nombre: ' || r_emp.first_name);
+  END LOOP;
+END;
       </code></pre>
     </section>
 
@@ -98,15 +234,25 @@ ORDER BY m.employee_id, e.employee_id;
       margin-bottom: 1.5rem;
       color: var(--color-muted, #666);
     }
+    
+    .phase-title {
+      margin-top: 3rem;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--color-border, #e6e6e6);
+      color: var(--color-primary, #111);
+      font-size: 1.5rem;
+    }
 
     .exercise {
-      margin: 2rem 0;
+      margin: 1.5rem 0;
       padding-top: 1rem;
-      border-top: 1px solid var(--color-border, #e6e6e6);
     }
 
     .exercise h2 {
       margin-bottom: 0.25rem;
+      font-size: 1.25rem;
+      color: var(--color-text, #333);
     }
 
     .enunciado {
