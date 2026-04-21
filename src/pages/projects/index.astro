@@ -13,15 +13,16 @@ const pageTitle = 'Portafolio de Desarrollo PL/SQL & SQL';
     <header class="page-header">
       <h1>{pageTitle}</h1>
       <p class="page-intro">
-        Material para tu portafolio, limpio de cualquier referencia externa y enfocado 100% en los requerimientos técnicos de Oracle.
+        Consolidado técnico de ejercicios de bases de datos Oracle, cubriendo desde fundamentos hasta objetos programables complejos.
       </p>
     </header>
 
     <h3 class="phase-title">Fase 1: Fundamentos y Consultas de Estructura</h3>
 
     <section class="exercise">
-      <h2>1. PL/SQL 01: Hola Mundo</h2>
-      <p class="enunciado">Primer bloque anónimo para verificar la configuración del entorno.</p>
+      <h2>1. Mi Primer Script PL/SQL: Saludo al Entorno</h2>
+      <span class="date">Feb 18, 2026</span>
+      <p class="enunciado">Primer bloque anónimo en Oracle para validar la conexión y salida de consola con DBMS_OUTPUT.</p>
       <pre><code>
 BEGIN
   DBMS_OUTPUT.PUT_LINE('Hola Mundo PL/SQL');
@@ -30,8 +31,9 @@ END;
     </section>
 
     <section class="exercise">
-      <h2>2. Ejercicio 1: Historial de Cargos</h2>
-      <p class="enunciado">Consulta para detectar empleados con más de un registro en la tabla de historial.</p>
+      <h2>2. Análisis de Rotación: Empleados con Múltiples Roles</h2>
+      <span class="date">Feb 12, 2026</span>
+      <p class="enunciado">Consulta SQL avanzada para identificar talentos que han ocupado más de un cargo histórico en la empresa.</p>
       <pre><code>
 SELECT employee_id, COUNT(*) AS total_roles
 FROM job_history
@@ -41,8 +43,9 @@ HAVING COUNT(*) > 1;
     </section>
 
     <section class="exercise">
-      <h2>3. PL/SQL 02: Asignación de Variable</h2>
-      <p class="enunciado">Declaración y manipulación de escalares.</p>
+      <h2>3. Lógica Base: Declaración y Control de Variables</h2>
+      <span class="date">Feb 18, 2026</span>
+      <p class="enunciado">Uso de la sección DECLARE para gestionar tipos de datos escalares y su impresión dinámica.</p>
       <pre><code>
 DECLARE
   v_test VARCHAR2(20) := 'Nando Dev';
@@ -53,8 +56,9 @@ END;
     </section>
 
     <section class="exercise">
-      <h2>4. Ejercicio 2: Filtro Europa y Salarios</h2>
-      <p class="enunciado">Filtrado avanzado utilizando JOINs entre regiones y empleados.</p>
+      <h2>4. Geolocalización Salarial: Filtro de Nómina Europea</h2>
+      <span class="date">Feb 11, 2026</span>
+      <p class="enunciado">Consulta relacional multitabla (JOINs) para filtrar empleados por región geográfica y rango de ingresos.</p>
       <pre><code>
 SELECT e.first_name, e.salary, r.region_name
 FROM employees e
@@ -69,8 +73,9 @@ WHERE r.region_name = 'Europe' AND e.salary BETWEEN 5000 AND 10000;
     <h3 class="phase-title">Fase 2: Manejo de Datos y Atributos</h3>
 
     <section class="exercise">
-      <h2>5. PL/SQL 03: SELECT INTO</h2>
-      <p class="enunciado">Recuperación de una única fila desde la base de datos a variables locales.</p>
+      <h2>5. Extracción Directa: Consulta Dinámica de Perfiles</h2>
+      <span class="date">Feb 18, 2026</span>
+      <p class="enunciado">Implementación de SELECT INTO para recuperar e inyectar datos de la tabla empleados en variables locales.</p>
       <pre><code>
 DECLARE
   v_fname employees.first_name%TYPE;
@@ -84,8 +89,9 @@ END;
     </section>
 
     <section class="exercise">
-      <h2>6. Ejercicio 3: Jerarquía y Emails</h2>
-      <p class="enunciado">Reporte jerárquico con enmascaramiento de seguridad en correos.</p>
+      <h2>6. Estructura Organizacional y Seguridad de Datos</h2>
+      <span class="date">Feb 10, 2026</span>
+      <p class="enunciado">Generación de reporte jerárquico con enmascaramiento selectivo de correos electrónicos corporativos.</p>
       <pre><code>
 SELECT LPAD(' ', 2*(LEVEL-1)) || first_name AS empleado,
        RPAD(SUBSTR(email, 1, 2), LENGTH(email), '*') AS email_hidden
@@ -96,8 +102,9 @@ CONNECT BY PRIOR employee_id = manager_id;
     </section>
 
     <section class="exercise">
-      <h2>7. PL/SQL 04: Uso de %TYPE</h2>
-      <p class="enunciado">Vinculación dinámica de tipos para asegurar integridad si cambia la tabla.</p>
+      <h2>7. Automatización de Tipado: Vinculación vía %TYPE</h2>
+      <span class="date">Feb 18, 2026</span>
+      <p class="enunciado">Uso de anclaje de tipos para garantizar que las variables mantengan consistencia con las columnas de la tabla HR.</p>
       <pre><code>
 DECLARE
   v_sal employees.salary%TYPE;
@@ -108,8 +115,9 @@ END;
     </section>
 
     <section class="exercise">
-      <h2>8. Ejercicio 4: Importar Información y Tablas</h2>
-      <p class="enunciado">Creación de tablas mediante CTAS (Create Table As Select).</p>
+      <h2>8. Gestión de Respaldos: Clonación de Estructuras (CTAS)</h2>
+      <span class="date">Feb 9, 2026</span>
+      <p class="enunciado">Creación rápida de tablas físicas basadas en consultas filtradas para asegurar la disponibilidad de información.</p>
       <pre><code>
 CREATE TABLE emp_backup AS 
 SELECT * FROM employees WHERE department_id = 80;
@@ -117,8 +125,9 @@ SELECT * FROM employees WHERE department_id = 80;
     </section>
 
     <section class="exercise">
-      <h2>9. PL/SQL 05: Uso de %ROWTYPE</h2>
-      <p class="enunciado">Manejo de registros completos de una tabla en una sola variable.</p>
+      <h2>9. Mapeo de Entidades: Captura de Filas con %ROWTYPE</h2>
+      <span class="date">Feb 18, 2026</span>
+      <p class="enunciado">Optimización de memoria al cargar un registro completo de la tabla en una sola variable de estructura múltiple.</p>
       <pre><code>
 DECLARE
   v_emp_rec employees%ROWTYPE;
@@ -132,8 +141,9 @@ END;
     <h3 class="phase-title">Fase 3: Lógica Algorítmica y Control</h3>
 
     <section class="exercise">
-      <h2>10. Ejercicio 5: Base de Datos de Librería</h2>
-      <p class="enunciado">Modelo relacional básico para gestión de libros.</p>
+      <h2>10. Modelado Relacional: Desarrollo de Sistema Bibliotecario</h2>
+      <span class="date">Feb 8, 2026</span>
+      <p class="enunciado">Diseño y creación de tablas desde cero para la gestión de activos editoriales.</p>
       <pre><code>
 CREATE TABLE libros (
     isbn VARCHAR2(20) PRIMARY KEY,
@@ -145,27 +155,44 @@ CREATE TABLE libros (
     </section>
 
     <section class="exercise">
-      <h2>11. Ejercicio 6: Exploración del Esquema NESPINOSAE</h2>
-      <p class="enunciado">Auditoría de objetos en esquemas específicos.</p>
+      <h2>11. Auditoría de Esquemas: Mapeo del Propietario NESPINOSAE</h2>
+      <span class="date">Mar 4, 2026</span>
+      <p class="enunciado">Consulta de metadatos del diccionario de datos de Oracle para listar objetos pertenecientes a un usuario específico.</p>
       <pre><code>
 SELECT table_name FROM all_tables WHERE owner = 'NESPINOSAE';
       </code></pre>
     </section>
 
     <section class="exercise">
-      <h2>12. PL/SQL 06-07: IF y GOTO (Día Primo)</h2>
-      <p class="enunciado">Control de flujo para validación matemática.</p>
+      <h2>12. Validación de Cómputo: Algoritmo de Días Primos (IF)</h2>
+      <span class="date">Feb 18, 2026</span>
+      <p class="enunciado">Uso de estructuras condicionales anidadas para determinar propiedades matemáticas del calendario.</p>
       <pre><code>
 DECLARE
   v_dia NUMBER := TO_NUMBER(TO_CHAR(SYSDATE, 'DD'));
-  v_i NUMBER := 2;
+  v_primo BOOLEAN := TRUE;
+BEGIN
+  IF v_dia &lt; 2 THEN v_primo := FALSE;
+  ELSE
+    FOR i IN 2..TRUNC(v_dia/2) LOOP
+      IF MOD(v_dia, i) = 0 THEN v_primo := FALSE; EXIT; END IF;
+    END LOOP;
+  END IF;
+  IF v_primo THEN DBMS_OUTPUT.PUT_LINE(v_dia || ' es primo');
+  ELSE DBMS_OUTPUT.PUT_LINE(v_dia || ' no es primo'); END IF;
+END;
+      </code></pre>
+    </section>
+
+    <section class="exercise">
+      <h2>13. Salto de Control: Flujo Lógico con Etiquetas GOTO</h2>
+      <span class="date">Feb 18, 2026</span>
+      <p class="enunciado">Demostración técnica de redireccionamiento de flujo mediante etiquetas identificadoras en PL/SQL.</p>
+      <pre><code>
+DECLARE
+  v_dia NUMBER := TO_NUMBER(TO_CHAR(SYSDATE, 'DD'));
 BEGIN
   IF v_dia &lt; 2 THEN GOTO no_primo; END IF;
-  &lt;&lt;check_loop&gt;&gt;
-  IF v_i &gt; v_dia / 2 THEN GOTO es_primo; END IF;
-  IF MOD(v_dia, v_i) = 0 THEN GOTO no_primo; END IF;
-  v_i := v_i + 1;
-  GOTO check_loop;
   &lt;&lt;es_primo&gt;&gt; DBMS_OUTPUT.PUT_LINE(v_dia || ' es primo'); RETURN;
   &lt;&lt;no_primo&gt;&gt; DBMS_OUTPUT.PUT_LINE(v_dia || ' no es primo');
 END;
@@ -173,10 +200,10 @@ END;
     </section>
 
     <section class="exercise">
-      <h2>13. PL/SQL 08-10: Loops (Fibonacci, MCM, Raíz)</h2>
-      <p class="enunciado">Ejemplo de uso de bucles para la secuencia de Fibonacci.</p>
+      <h2>14. Secuencias Infinitas: Generador Fibonacci con LOOP</h2>
+      <span class="date">Feb 18, 2026</span>
+      <p class="enunciado">Algoritmo iterativo para proyectar la sucesión de Fibonacci hasta un límite determinado.</p>
       <pre><code>
--- Fibonacci con LOOP
 DECLARE
   a NUMBER := 0; b NUMBER := 1; t NUMBER;
 BEGIN
@@ -189,11 +216,48 @@ END;
       </code></pre>
     </section>
 
+    <section class="exercise">
+      <h2>15. Optimización Euclidiana: Cálculo de MCM vía WHILE</h2>
+      <span class="date">Feb 18, 2026</span>
+      <p class="enunciado">Implementación del algoritmo de Euclides para el cálculo del Mínimo Común Múltiplo.</p>
+      <pre><code>
+DECLARE
+  v_num1 NUMBER := 12; v_num2 NUMBER := 18;
+  v_a NUMBER := v_num1; v_b NUMBER := v_num2;
+BEGIN
+  WHILE v_b != 0 LOOP
+    v_a := MOD(v_a, v_b);
+    SELECT v_a, v_b INTO v_b, v_a FROM dual;
+  END LOOP;
+  DBMS_OUTPUT.PUT_LINE('MCM: ' || (v_num1 * v_num2) / v_a);
+END;
+      </code></pre>
+    </section>
+
+    <section class="exercise">
+      <h2>16. Búsqueda Determinada: Proyección de Raíz Entera (FOR)</h2>
+      <span class="date">Feb 18, 2026</span>
+      <p class="enunciado">Evaluación sistémica para encontrar si un número X posee raíz cuadrada exacta en el conjunto de enteros.</p>
+      <pre><code>
+DECLARE
+  v_x NUMBER := 25;
+BEGIN
+  FOR i IN 1..v_x LOOP
+    IF i * i = v_x THEN
+      DBMS_OUTPUT.PUT_LINE('Raíz entera: ' || i);
+      EXIT;
+    END IF;
+  END LOOP;
+END;
+      </code></pre>
+    </section>
+
     <h3 class="phase-title">Fase 4: Objetos Programables</h3>
 
     <section class="exercise">
-      <h2>14. PL/SQL 11: Procedimientos Almacenados</h2>
-      <p class="enunciado">Creación de procedimiento almacenado para actualización salarial.</p>
+      <h2>17. Lógica Reutilizable: Procedimientos de Gestión Salarial</h2>
+      <span class="date">Mar 4, 2026</span>
+      <p class="enunciado">Desarrollo de objetos persistentes para la actualización masiva y segura de datos sensibles.</p>
       <pre><code>
 CREATE OR REPLACE PROCEDURE upd_salary(p_id IN NUMBER, p_percent IN NUMBER) IS
 BEGIN
@@ -204,8 +268,9 @@ END;
     </section>
 
     <section class="exercise">
-      <h2>15. PL/SQL 12: Cursores Explícitos y Parametrizados</h2>
-      <p class="enunciado">Declaración y uso de cursores explícitos con parámetros.</p>
+      <h2>18. Procesamiento de Conjuntos: Cursores Parametrizados</h2>
+      <span class="date">Feb 18, 2026</span>
+      <p class="enunciado">Iteración profesional sobre juegos de datos mediante cursores explícitos con paso de parámetros.</p>
       <pre><code>
 DECLARE
   CURSOR c_dept(p_id NUMBER) IS SELECT first_name FROM employees WHERE department_id = p_id;
@@ -236,42 +301,57 @@ END;
     }
     
     .phase-title {
-      margin-top: 3rem;
-      margin-bottom: 0.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid var(--color-border, #e6e6e6);
-      color: var(--color-primary, #111);
-      font-size: 1.5rem;
+      margin-top: 4rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 3px solid #3b82f6; /* Azul vibrante */
+      color: #3b82f6;
+      font-size: 1.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .exercise {
-      margin: 1.5rem 0;
-      padding-top: 1rem;
+      margin: 2.5rem 0;
+      padding-bottom: 1rem;
     }
 
     .exercise h2 {
-      margin-bottom: 0.25rem;
-      font-size: 1.25rem;
-      color: var(--color-text, #333);
+      margin-bottom: 0.1rem;
+      font-size: 1.4rem;
+      color: var(--color-primary, #fff);
+    }
+
+    .date {
+      display: block;
+      font-size: 0.85rem;
+      color: #3b82f6;
+      margin-bottom: 0.75rem;
+      font-weight: 500;
     }
 
     .enunciado {
       margin: 0.25rem 0 0.75rem;
-      color: var(--color-muted, #555);
+      color: var(--color-muted, #999);
       font-style: italic;
+      line-height: 1.5;
     }
 
     pre {
-      background: #0b0b0b;
-      color: #e6e6e6;
-      padding: 1rem;
-      border-radius: 6px;
+      background: #0b1117;
+      color: #e6edf3;
+      padding: 1.25rem;
+      border-radius: 8px;
       overflow: auto;
+      border: 1px solid #30363d;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
     code {
-      font-family: monospace;
-      font-size: 0.95rem;
+      font-family: 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
       white-space: pre;
       display: block;
     }
